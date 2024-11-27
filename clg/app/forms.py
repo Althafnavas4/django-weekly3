@@ -1,4 +1,4 @@
-from django import forms
+from django import forms 
 from .models import *
 
 class course_form(forms.Form):
@@ -8,10 +8,12 @@ class course_form(forms.Form):
     message=forms.CharField()
     coursee=forms.CharField()
 
-class contact_form(forms.Form):
-    name=forms.CharField()
-    email=forms.EmailField()
-    message=forms.CharField()
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['name', 'email', 'subject', 'message']
+
 
 
     

@@ -2,23 +2,23 @@ from django.shortcuts import render,redirect
 from .forms import *
 from .models import *
 
+
 # Create your views here.
 def home(req):
     return render(req,'home.html',)
 def about(req):
     return render(req,'about.html',)
-def contact(req):
-    if req.method=='POST':
-        form=contact_form(req.POST)
+def contact(request):
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
         if form.is_valid():
-            name=form.cleaned_data['name']
-            email=form.cleaned_data['email']
-            message=form.cleaned_data['message']
-            data=Contact.objects.create(name=name,email=email,message=message)
-            data.save()
-            return redirect(contact)
-    form=contact_form()
-    return render(req,'contact.html')
+            form.save()  
+            return redirect('thank_you')  
+    else:
+        form = MessageForm()
+
+    return render(request, 'contact.html', {'form': form})
+    
 def course(req):
     if req.method=='POST':
         form=course_form(req.POST)
@@ -33,4 +33,6 @@ def course(req):
             return redirect(course)
     form=course_form()
     return render(req,'course.html',{'form':form})
+def thank_you_view(request):
+    return render(request, 'thank_you.html')
 

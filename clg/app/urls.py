@@ -7,5 +7,6 @@ urlpatterns = [
     path('about',views.about),
     path('contact',views.contact),
     path('course',views.course),
+    path('thank-you/', views.thank_you_view, name='thank_you'),
 
 ]
